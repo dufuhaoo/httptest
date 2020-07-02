@@ -1,0 +1,30 @@
+-   config:
+        name: "\u3010\u524D\u7F6E\u6761\u4EF6\u3011\u6DFB\u52A0\u8054\u7CFB\u4EBA"
+        request:
+            base_url: http://testzx.ywsk.cn:38000
+            headers:
+                Authorization: ${trade_random_login($loginUserMobile,40)}
+                content-type: application/json; charset=UTF-8
+        variables:
+        -   loginUserMobile: '13322220001'
+        -   change_contact_name: "\u5218\u94ED\u6708"
+        -   change_contact_mobile: '15544441101'
+        -   contantName: "\u5218\u5C0F\u96E8"
+        -   contantMobile: '13522220002'
+-   test:
+        name: "\u3010\u524D\u7F6E\u6761\u4EF6\u3011\u6DFB\u52A0\u8054\u7CFB\u4EBA"
+        request:
+            json:
+                data:
+                    mobile: $contantMobile
+                    name: $contantName
+                signStr: string
+            method: POST
+            url: /netCar/page/contact/addContact
+        validate:
+        -   check: content.code
+            comparator: equals
+            expected: 0
+        -   check: content.msg
+            comparator: equals
+            expected: OK

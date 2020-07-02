@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block title %}神州订单回调pipe{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+    <div class=" admin-content">
+
+        <div class="admin-biaogelist">
+            <div class="listbiaoti am-cf">
+                <ul class="glyphicon glyphicon-wrench"> 神州订单回调pipe</ul>
+            </div>
+            <div class="fbneirong">
+                <form class="form-horizontal" id="sz_callback_for_pipe">
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="responsible_name">银行：</label>
+                        <div class="col-md-5">
+
+                            <select class="form-control" name="bank" id="bank">
+                                    <option value="1">浦发</option>
+                                    <option value="2">中信</option>
+                                    <option value="3">广发</option>
+                                </select>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="tradeOrderId">订单号：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="tradeOrderId"
+                                   aria-describedby="inputSuccess3Status" name="tradeOrderId" placeholder="请输入订单号"
+                                   value="">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="responsible_name">回调状态：</label>
+                        <div class="col-md-5">
+
+                            <select class="form-control" name="callBackStatus" id="callBackStatus">
+                                    <option value="dispatched">司机接单</option>
+                                    <option value="arriving">司机出发</option>
+                                    <option value="arrived">司机已到达</option>
+                                    <option value="serviceStarted">开始服务</option>
+                                    <option value="serviceFinished">结束服务-乘客下车</option>
+                                    <option value="feeSubmitted">费用确认-费用提交</option>
+                                    <option value="completed">完成</option>
+                                    <option value="balanceNotEnough">订单新建成功后，发现用户余额不足，需要在五分钟内充值，否则后台自动取消订单。需要用户主动拉取订单详情接口，以获取差多少钱</option>
+                                    <option value="rechargedInTime">余额不足订单发生充值，需要用户主动拉取订单详情接口，以获取还差多少钱，如果欠费金额为0，则表明该单不欠费，可以进行后续流程</option>
+                                    <option value="canRetryInvalid">订单无效，再次下单可能下单成功。例如超接单上线，无空驶车辆</option>
+                                    <option value="noRetryInvalid">订单无效，再次下单也不可能下单成功。例如超服务范围，无司机。</option>
+                                </select>
+
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="responsible_name">车型：</label>
+                        <div class="col-md-5">
+                            <select class="form-control" name="driverId" id="driverId">
+                                    <option value="44118">豪华轿车</option>
+                                    <option value="49881">公务轿车</option>
+                                    <option value="43851">商务7座</option>
+                                </select>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="actualKiloLength">公里数：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="actualKiloLength"
+                                   aria-describedby="inputSuccess3Status" name="actualKiloLength" placeholder="请填写行驶公里数，默认5公里"
+                                   value="5">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="highWayAmount">高速费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="highWayAmount"
+                                   aria-describedby="inputSuccess3Status" name="highWayAmount" placeholder="请填写高速费，默认0元"
+                                   value="0.0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="cleanAmount">清洁费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="cleanAmount"
+                                   aria-describedby="inputSuccess3Status" name="cleanAmount" placeholder="请填写清洁费，默认0元"
+                                   value="0.0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="airportServiceAmount">机场服务费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="airportServiceAmount"
+                                   aria-describedby="inputSuccess3Status" name="airportServiceAmount" placeholder="请填写机场服务费，默认0元"
+                                   value="0.0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="parkingAmount">停车费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="parkingAmount"
+                                   aria-describedby="inputSuccess3Status" name="parkingAmount" placeholder="请填写停车费，默认0元"
+                                   value="0.0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="otherAmount">其他费用：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="otherAmount"
+                                   aria-describedby="inputSuccess3Status" name="otherAmount" placeholder="请填写其他费用，默认0元"
+                                   value="0.0">
+                        </div>
+                    </div>
+
+                    <div class="am-form-group am-cf">
+                        <div class="you" style="margin-left: 8%;">
+                            <button type="button" class="am-btn am-btn-success am-radius" id="send"
+                                    onclick="info_ajax('#sz_callback_for_pipe', '/api/sz_callback_for_pipe/')">点 击 提 交
+                            </button>&nbsp;
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

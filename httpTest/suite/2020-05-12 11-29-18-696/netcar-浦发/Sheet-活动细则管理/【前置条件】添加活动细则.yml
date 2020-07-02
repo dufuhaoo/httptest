@@ -1,0 +1,34 @@
+-   config:
+        name: "\u3010\u524D\u7F6E\u6761\u4EF6\u3011\u6DFB\u52A0\u6D3B\u52A8\u7EC6\u5219"
+        request:
+            base_url: http://testzx.ywsk.cn:38000
+            headers:
+                Cookie: Secure; shiroCookie=${sheet_login(admin)}; Secure; Secure
+                Referer: http://testzx.ywsk.cn:38000/netCarAdminVue/
+                X-Requested-With: XMLHttpRequest
+                content-type: application/json; charset=UTF-8
+        variables:
+        -   activityTitle: "<p>\u6D4B\u8BD5\u5185\u5BB9</p>"
+        -   activityContent: "\u6D4B\u8BD5\u6D3B\u52A8\u7EC6\u5219\u7BA1\u7406"
+        -   begTime: ${get_time('m','after',3)}
+        -   endTime: ${get_time('d','after',7)}
+        -   startTime: ${get_time()}
+-   test:
+        name: "\u3010\u524D\u7F6E\u6761\u4EF6\u3011\u6DFB\u52A0\u6D3B\u52A8\u7EC6\u5219"
+        request:
+            json:
+                activityContent: $activityContent
+                activityTitle: $activityTitle
+                begTime: $begTime
+                endTime: $endTime
+                startTime: $startTime
+            method: POST
+            url: /netCarAdminAuth/activityRulesController/addRulesConfig
+        validate:
+        -   check: content.code
+            comparator: equals
+            expected: 100128
+        -   check: content.msg
+            comparator: equals
+            expected: "\u66F4\u65B0\u6210\u529F \u8BF7\u5237\u65B0\u7F13\u5B58\u6309\
+                \u94AE"

@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+{% block title %}首汽渠道订单回调{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+    <div class=" admin-content">
+
+        <div class="admin-biaogelist">
+            <div class="listbiaoti am-cf">
+                <ul class="glyphicon glyphicon-wrench"> 首汽渠道订单回调</ul>
+            </div>
+            <div class="fbneirong">
+                <form class="form-horizontal" id="sq_callback">
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="responsible_name">银行：</label>
+                        <div class="col-md-5">
+
+                            <select class="form-control" name="bank" id="bank">
+                                    <option value="1">浦发</option>
+                                    <option value="2">中信</option>
+                                    <option value="3">广发</option>
+                                </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="tradeOrderId">订单号：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="tradeOrderId"
+                                   aria-describedby="inputSuccess3Status" name="tradeOrderId" placeholder="请输入订单号"
+                                   value="">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="responsible_name">回调状态：</label>
+                        <div class="col-md-5">
+
+                            <select class="form-control" name="callBackStatus" id="callBackStatus">
+                                    <option value="accepted">司机接单</option>
+                                    <option value="setout">司机出发</option>
+                                    <option value="arrived">司机已到达</option>
+                                    <option value="in_progress">开始服务</option>
+                                    <option value="end_trip">结束服务-乘客下车</option>
+                                    <option value="completed">完成</option>
+                                    <option value="order_finished">订单确认</option>
+                                    <option value="reassign">改派</option>
+                                    <option value="sys_canceled">系统取消</option>
+                                    <option value="cs_canceled">客服取消</option>
+                                    <option value="driver_overtime_canceled">司机超时未到达取消</option>
+                                </select>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="carColor">车辆颜色：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="carColor"
+                                   aria-describedby="inputSuccess3Status" name="carColor" placeholder="请填写车辆颜色"
+                                   value="红色">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="carName">车型名称：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="carName"
+                                   aria-describedby="inputSuccess3Status" name="carName" placeholder="请填写车型名称"
+                                   value="沃尔沃S90">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="driverName">司机姓名：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="driverName"
+                                   aria-describedby="inputSuccess3Status" name="driverName" placeholder="请填写司机姓名"
+                                   value="张师傅">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="carLicense">车牌号码：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="carLicense"
+                                   aria-describedby="inputSuccess3Status" name="carLicense" placeholder="请填写车牌号码"
+                                   value="京Q35172">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="driverMobile">司机电话：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="driverMobile"
+                                   aria-describedby="inputSuccess3Status" name="driverMobile" placeholder="请填写司机电话"
+                                   value="18800000008">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="driverRate">司机评分：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="driverRate"
+                                   aria-describedby="inputSuccess3Status" name="driverRate" placeholder="请填写司机评分"
+                                   value="4.8">
+                        </div>
+                    </div>
+
+                  <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="basePrice">起步价：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="basePrice"
+                                   aria-describedby="inputSuccess3Status" name="basePrice" placeholder="请填写起步价"
+                                   value="12.0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="highSpeedFee">高速费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="highSpeedFee"
+                                   aria-describedby="inputSuccess3Status" name="highSpeedFee" placeholder="请填写高速费"
+                                   value="0.0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="parkingFee">停车费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="parkingFee"
+                                   aria-describedby="inputSuccess3Status" name="parkingFee" placeholder="请填写停车费"
+                                   value="0.0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="airportServiceFee">机场服务费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="airportServiceFee"
+                                   aria-describedby="inputSuccess3Status" name="airportServiceFee" placeholder="请填写机场服务费"
+                                   value="0.0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="roomBoardFee">食宿费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="roomBoardFee"
+                                   aria-describedby="inputSuccess3Status" name="roomBoardFee" placeholder="请填写食宿费"
+                                   value="0.0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="voiceFee">语音费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="voiceFee"
+                                   aria-describedby="inputSuccess3Status" name="voiceFee" placeholder="请填写语音费"
+                                   value="0.0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="hotDurationFees">高峰时长费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="hotDurationFees"
+                                   aria-describedby="inputSuccess3Status" name="hotDurationFees" placeholder="请填写高峰时长费"
+                                   value="0.0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="overTimePrice">超时长费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="overTimePrice"
+                                   aria-describedby="inputSuccess3Status" name="overTimePrice" placeholder="请填写超时长费"
+                                   value="0.0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="overMilagePrice">超里程费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="overMilagePrice"
+                                   aria-describedby="inputSuccess3Status" name="overMilagePrice" placeholder="请填写超里程费"
+                                   value="0.0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="hotMileageFees">高峰里程费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="hotMileageFees"
+                                   aria-describedby="inputSuccess3Status" name="hotMileageFees" placeholder="请填写高峰里程费"
+                                   value="0.0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="waitingFee">等待费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="waitingFee"
+                                   aria-describedby="inputSuccess3Status" name="waitingFee" placeholder="请填写等待费"
+                                   value="0.0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="nighitDurationFees">夜间时长费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="nighitDurationFees"
+                                   aria-describedby="inputSuccess3Status" name="nighitDurationFees" placeholder="请填写夜间时长费"
+                                   value="0.0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="longDistancePrice">长途里程费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="longDistancePrice"
+                                   aria-describedby="inputSuccess3Status" name="longDistancePrice" placeholder="请填写长途里程费"
+                                   value="0.0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="nightDistancePrice">夜间服务费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="nightDistancePrice"
+                                   aria-describedby="inputSuccess3Status" name="nightDistancePrice" placeholder="请填写夜间服务费"
+                                   value="0.0">
+                        </div>
+                    </div>
+
+                    <div class="am-form-group am-cf">
+                        <div class="you" style="margin-left: 8%;">
+                            <button type="button" class="am-btn am-btn-success am-radius" id="send"
+                                    onclick="info_ajax('#sq_callback', '/api/sq_callback/')">点 击 提 交
+                            </button>&nbsp;
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

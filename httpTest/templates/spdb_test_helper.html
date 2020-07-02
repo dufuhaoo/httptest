@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+{% block title %}Spdb测试辅助{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+        <div class="admin-biaogelist">
+            <div class="listbiaoti am-cf">
+                <ul class="glyphicon glyphicon-wrench"> Spdb测试辅助</ul>
+            </div>
+            <div class="fbneirong">
+                <form class="form-horizontal" id="pay_callback">
+
+                        <div class="admin-biaogelist">
+        <form class="am-form am-g" id="pay_round" name="spdb_pay_round" method="post" action="/api/spdb_pay_round/">
+            <table width="100%" class="am-table am-table-bordered am-table-radius am-table-striped">
+                <thead>
+                <tr class="am-success">
+                    <th class="table-check"><input type="checkbox" id="select_all"/></th>
+                    <th class="table-set">是否开启</th>
+                    <th class="table-title">任务名称</th>
+                    <th width="163px" class="table-set">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                    {# 订单支付轮循 #}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        {% if round_task.enabled == True %}
+{#                            <td class="am-hide-sm-only"><i class="glyphicon glyphicon-ok"> 已开启</i></td>#}
+                            <td class="am-hide-sm-only">
+{#                            {% if round_taskprogress < 20 %}#}
+{#                                <div class="progress progress-striped active">#}
+{#                                    <span>当前进度:{{ round_task.progress }}%</span>#}
+{#                                <div class="progress-bar progress-bar-success" role="progressbar"#}
+{#                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"#}
+{#                                     style="width: {{ round_task.progress }}%;">#}
+{#                                </div>#}
+{#                                </div>#}
+{#                            {% else %}#}
+                                <div class="progress progress-striped active">
+                                <div class="progress-bar progress-bar-success" role="progressbar"
+                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 100%;">
+                                    <span>当前进度:{{ round_task.progress }}%</span>
+                                </div>
+                                </div>
+{#                            {% endif %}#}
+                                </td>
+
+                        {% else %}
+                            <td class="am-hide-sm-only"><i class="glyphicon glyphicon-remove"> 未启动</i></td>
+                        {% endif %}
+                        <td>{{ round_task.name }}</td>
+                        <td>
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
+                                    <button type="button"
+                                            class="am-btn am-btn-default am-btn-xs am-text-secondary am-round"
+                                            data-am-popover="{content: '开启', trigger: 'hover focus'}"
+                                            onclick="rount_task_set(true)"> <span
+                                            class="glyphicon glyphicon-play"></span></button>
+                                    <button type="button"
+                                            class="am-btn am-btn-default am-btn-xs am-text-secondary am-round"
+                                            data-am-popover="{content: '关闭', trigger: 'hover focus'}"
+                                            onclick="rount_task_set(false)"> <span
+                                            class="glyphicon glyphicon-stop"></span></button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    {# 全员免密 #}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        {% if secret_task.enabled == True %}
+                            <td class="am-hide-sm-only"><i class="glyphicon glyphicon-ok"> 已开启</i></td>
+                        {% else %}
+                            <td class="am-hide-sm-only"><i class="glyphicon glyphicon-remove"> 已关闭</i></td>
+                        {% endif %}
+                        <td>{{ secret_task.name }}</td>
+                        <td>
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
+                                    <button type="button"
+                                            class="am-btn am-btn-default am-btn-xs am-text-secondary am-round"
+                                            data-am-popover="{content: '开启', trigger: 'hover focus'}"
+                                            onclick="secret_task_set(true)"> <span
+                                            class="glyphicon glyphicon-play"></span></button>
+                                    <button type="button"
+                                            class="am-btn am-btn-default am-btn-xs am-text-secondary am-round"
+                                            data-am-popover="{content: '关闭', trigger: 'hover focus'}"
+                                            onclick="secret_task_set(false)"> <span
+                                            class="glyphicon glyphicon-stop"></span></button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+            <hr/>
+        </form>
+    </div>
+                </form>
+            </div>
+        </div>
+{#    </div>#}
+
+    <script type="text/javascript">
+    function myrefresh()
+        {
+           window.location.reload();
+        }
+        setTimeout('myrefresh()',10000); //指定1秒刷新一次
+
+
+        function rount_task_set(mode) {
+            var data = {
+                'mode': mode
+            };
+            $.ajax({
+                type: 'post',
+                url: '/api/start_stop_spdb_pay_round/',
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                success: function (data) {
+                    if (data !== 'ok') {
+                        myAlert(data);
+                    }
+                    else {
+                        window.location.reload();
+                    }
+                },
+                error: function () {
+                    myAlert('Sorry，服务器可能开小差啦, 请重试!');
+                }
+            });
+        }
+
+        $('#select_all').click(function () {
+            var isChecked = $(this).prop("checked");
+            $("input[name^='task']").prop("checked", isChecked);
+        })
+
+        function secret_task_set(mode) {
+            var data = {
+                'mode': mode
+            };
+            $.ajax({
+                type: 'post',
+                url: '/api/spdb_secret_settings/',
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                success: function (data) {
+                    if (data !== 'ok') {
+                        myAlert(data);
+                    }
+                    else {
+                        window.location.reload();
+                    }
+                },
+                error: function () {
+                    myAlert('Sorry，服务器可能开小差啦, 请重试!');
+                }
+            });
+        }
+
+        $('#select_all').click(function () {
+            var isChecked = $(this).prop("checked");
+            $("input[name^='task']").prop("checked", isChecked);
+        })
+
+    </script>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

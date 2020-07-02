@@ -1,0 +1,47 @@
+-   config:
+        name: "\u6D4B\u8BD5\u6DFB\u52A0\u8054\u7CFB\u4EBA\u59D3\u540D\u5B57\u6570\u8FB9\
+            \u754C\u503C\u4E0E\u5B57\u7B26\u7EC4\u5408"
+        request:
+            base_url: http://testzx.ywsk.cn:38000
+            headers:
+                Authorization: ${trade_random_login($loginUserMobile,40)}
+                content-type: application/json; charset=UTF-8
+        variables:
+        -   loginUserMobile: '13322220001'
+        -   change_contact_name: "\u5218\u94ED\u6708"
+        -   change_contact_mobile: '15544441101'
+        -   contantName: "\u5218\u5C0F\u96E8"
+        -   contantMobile: '13522220002'
+-   test:
+        name: "\u6D4B\u8BD5\u6DFB\u52A0\u8054\u7CFB\u4EBA\u59D3\u540D\u5B57\u6570\u8FB9\
+            \u754C\u503C\u4E0E\u5B57\u7B26\u7EC4\u5408"
+        parameters:
+        -   name:
+            - "\u4E00\u4E8C\u4E09\u56DB\u4E94\u516D\u4E03\u516B\u4E5D\u5341\u4E00\u4E8C\
+                \u4E09\u56DB\u4E94\u516D\u4E03\u516B\u4E5D\u5341\u4E00\u4E8C\u4E09\
+                \u56DB\u4E94\u516D\u4E03\u516B\u4E5D\u5341\u4E00\u4E8C\u4E09\u56DB\
+                \u4E94\u516D\u4E03\u516B\u4E5D\u5341\u4E00\u4E8C\u4E09\u56DB\u4E94\
+                \u516D\u4E03\u516B\u4E5D\u5341"
+            - "\u4E00\u4E8C"
+            - '123'
+            - jjj
+            - '*&^&*'
+            - 123&*^hgjkfd
+        request:
+            json:
+                data:
+                    mobile: $contantMobile
+                    name: $name
+                signStr: string
+            method: POST
+            url: /netCar/page/contact/addContact
+        setup_hooks: []
+        teardown_hooks:
+        - ${clean_user_contact($loginUserMobile)}
+        validate:
+        -   check: content.code
+            comparator: equals
+            expected: 0
+        -   check: content.msg
+            comparator: equals
+            expected: OK

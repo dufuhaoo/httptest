@@ -1,0 +1,45 @@
+-   config:
+        name: "\u6D4B\u8BD5\u6DFB\u52A0\u5BB6\u5E38\u7528\u5730\u5740"
+        request:
+            base_url: http://testzx.ywsk.cn:38000
+            headers:
+                Authorization: ${trade_random_login($loginUserMobile,40)}
+                content-type: application/json; charset=UTF-8
+        variables:
+        -   loginUserMobile: '17700210101'
+        -   homeAddressLat: '39.843054'
+        -   homeAddressLng: '116.378263'
+        -   homeAddressStreetName: "\u5317\u4EAC\u5E02\u4E30\u53F0\u533A\u9A6C\u5BB6\
+                \u5821\u897F\u8DEF36\u53F7\u9662"
+        -   homeAddressName: "\u4E1C\u4E9A\u4E09\u73AF"
+        -   homeAddressAreaName: "\u5317\u4EAC\u5E02\u4E30\u53F0\u533A"
+        -   companyAddressLat: '39.943801'
+        -   companyAddressLng: '116.333347'
+        -   companyAddressStreetName: "\u5317\u4EAC\u5E02\u6D77\u6DC0\u533A\u897F\u76F4\
+                \u95E8\u5916\u5927\u8857168\u53F7"
+        -   companyAddressName: "\u817E\u8FBE\u5927\u53A6-\u4E3B\u697C"
+        -   companyAddressAreaName: "\u5317\u4EAC\u5E02\u6D77\u6DC0\u533A"
+        -   homeAddressType: 1
+        -   companyAddressType: 2
+-   test:
+        name: "\u6D4B\u8BD5\u6DFB\u52A0\u5BB6\u5E38\u7528\u5730\u5740"
+        request:
+            json:
+                data:
+                    addName: $homeAddressName
+                    addType: $homeAddressType
+                    areaName: $homeAddressAreaName
+                    locationInfo:
+                        lat: $homeAddressLat
+                        lng: $homeAddressLng
+                    streetName: $homeAddressStreetName
+                signStr: string
+            method: POST
+            url: netCar/page/address/addCustomerCommonAddress
+        validate:
+        -   check: content.code
+            comparator: equals
+            expected: 0
+        -   check: content.msg
+            comparator: equals
+            expected: OK

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Spdb红包充值{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+    <div class=" admin-content">
+
+        <div class="admin-biaogelist">
+            <div class="listbiaoti am-cf">
+                <ul class="glyphicon glyphicon-wrench"> Spdb红包充值</ul>
+            </div>
+            <div class="fbneirong">
+                <form class="form-horizontal" id="coupon_recharge">
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="eventId">活动ID：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="eventId"
+                                   aria-describedby="inputSuccess3Status" name="eventId" placeholder="请输入活动ID"
+                                   value="">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="userId">用户ID：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="userId"
+                                   aria-describedby="inputSuccess3Status" name="userId" placeholder="请输入用户ID"
+                                   value="">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="couponAmount">指定金额：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="couponAmount"
+                                   aria-describedby="inputSuccess3Status" name="couponAmount" placeholder="请输入指定金额，以分为单位，如不填写则为默认金额"
+                                   value="">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="expireTime">过期时间：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="expireTime"
+                                   aria-describedby="inputSuccess3Status" name="expireTime" placeholder="请输入过期时间，以天为单位，如不填写则为默认过期时间"
+                                   value="">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="isAllRefund">传UserId：</label>
+                        <div class="col-md-5">
+
+                            <select class="form-control" name="isUserId" id="isAllRefund">
+                                    <option value="0">否</option>
+                                    <option value="1">是</option>
+                                </select>
+
+                        </div>
+                    </div>
+{#                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如用户ID不存在，则身份证号规则为：用户ID + 9999999</span>#}
+                    <div class="am-form-group am-cf">
+                        <div class="you" style="margin-left: 8%;">
+                            <button type="button" class="am-btn am-btn-success am-radius" id="send"
+                                    onclick="info_ajax('#coupon_recharge', '/api/coupon_recharge/')">点 击 提 交
+                            </button>&nbsp;
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

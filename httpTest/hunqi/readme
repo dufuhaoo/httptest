@@ -1,0 +1,1 @@
+pyinstaller -F -w -i ./tubiao.ico ./spike_tk_hunqi.py

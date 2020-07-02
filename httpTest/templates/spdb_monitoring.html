@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+{% block title %}Spdb监控查看{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+        <div class="admin-biaogelist">
+            <div class="listbiaoti am-cf">
+                <ul class="glyphicon glyphicon-wrench"> Spdb监控查看</ul>
+            </div>
+            <div class="fbneirong">
+                <form class="form-horizontal" id="pay_callback">
+
+                        <div class="admin-biaogelist">
+        <form class="am-form am-g" id="pay_round" name="spdb_pay_round" method="post" action="/api/spdb_pay_round/">
+
+
+
+            {% if system_info.memory_usage > 50.0 %}
+                <div class="progress progress-striped active">
+                    <div class="progress-bar progress-bar-warning" role="progressbar"
+                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                         style="width: 100%;">
+                        <div>
+                            <span>服务器资源使用情况:</span>
+                            <span>当前服务器IP地址：{{ system_info.ip }}</span>
+                            <span>内存已使用：{{ system_info.memory_usage }} G</span>
+                            <span>内存剩余：{{ system_info.memory_free }} G</span>
+                            <span>内存使用率：{{ system_info.memory_percent }} %</span>
+                            <span>CPU使用率：{{ system_info.cpu_percent }} %</span>
+                        </div>
+                    </div>
+                </div>
+            {% elif system_info.memory_usage > 70.0 %}
+                 <div class="progress progress-striped active">
+                    <div class="progress-bar progress-bar-danger" role="progressbar"
+                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                         style="width: 100%;">
+                            <div>
+                                <span>服务器资源使用情况:</span>
+                                <span>当前服务器IP地址：{{ system_info.ip }}</span>
+                                <span>内存已使用：{{ system_info.memory_usage }} G</span>
+                                <span>内存剩余：{{ system_info.memory_free }} G</span>
+                                <span>内存使用率：{{ system_info.memory_percent }} %</span>
+                                <span>CPU使用率：{{ system_info.cpu_percent }} %</span>
+                            </div>
+
+                    </div>
+                </div>
+            {% else %}
+                <div class="progress progress-striped active">
+                    <div class="progress-bar progress-bar-success" role="progressbar"
+                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                         style="width: 100%;">
+                           <div>
+                                <span>服务器资源使用情况:</span>
+                                <span>当前服务器IP地址：{{ system_info.ip }}</span>
+                                <span>内存已使用：{{ system_info.memory_usage }} G</span>
+                                <span>内存剩余：{{ system_info.memory_free }} G</span>
+                                <span>内存使用率：{{ system_info.memory_percent }} %</span>
+                                <span>CPU使用率：{{ system_info.cpu_percent }} %</span>
+                            </div>
+
+                    </div>
+                </div>
+            {% endif %}
+            <div class="am-form-group am-cf">
+                <div class="you" style="margin-left: 86%;">
+{#                            <button type="button" class="am-btn am-btn-success am-radius" id="send"#}
+{#                                    onclick="info_ajax('#pay_callback', '/api/pay_callback/')">点 击 提 交#}
+{#                            </button>&nbsp;#}
+                    <button type="button" class="btn btn-primary" onclick="task_set(true,'all')">全部开启</button>
+                    <button type="button" class="btn btn-warning" onclick="task_set(false,'all')">全部停止</button>
+                </div>
+            </div>
+
+            <table width="100%" class="am-table am-table-bordered am-table-radius am-table-striped">
+                <thead>
+                <tr class="am-success">
+                    <th class="table-check" style="width:20px; height:20px;">
+                        <input type="checkbox" id="select_all"/>
+                    </th>
+                    <th class="table-title" style="width:150px;">任务名称</th>
+                    <th class="table-set" style="width:80px;">状态</th>
+                    <th class="table-set" style="width:80px;">结果</th>
+                    <th class="table-set" style="width:200px;">信息</th>
+                    <th class="table-set" style="width:90px;">近10次通过率</th>
+                    <th class="table-set" style="width:80px;">全部通过率</th>
+                    <th class="table-set" style="width:60px;">运行时长</th>
+{#                    <th class="table-set" style="width:50px;">运行间隔</th>#}
+                    <th class="table-set" style="width:100px;">上次运行时间</th>
+                    <th width="163px" class="table-set" style="width:100px;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for result in result_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ result.name }}</td>
+
+                        {% if result.enabled == '运行中' %}
+                            <td class="am-hide-sm-only">
+                                <div class="progress progress-striped active">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar"
+                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                         style="width: 100%;">运行中
+                                    </div>
+                                </div>
+{#                                <button type="button" class="btn btn-success">运行中</button>#}
+                            </td>
+                        {% elif result.enabled == '等待中' %}
+                            <td class="am-hide-sm-only">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info" role="progressbar"
+                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                         style="width: 100%;">等待中
+                                    </div>
+                                </div>
+{#                                <button type="button" class="btn btn-success">运行中</button>#}
+                            </td>
+                        {% else %}
+                            <td class="am-hide-sm-only">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar"
+                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                         style="width: 100%;">未启动
+                                    </div>
+                                </div>
+{#                                <button type="button" class="btn btn-danger">已停止</button>#}
+                            </td>
+                        {% endif %}
+
+                        {% if result.status == True %}
+                            <td class="am-hide-sm-only">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar"
+                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                         style="width: 100%;">成功
+                                    </div>
+                                </div>
+{#                                <i class="glyphicon glyphicon-ok"> 通过</i>#}
+                            </td>
+                        {% else %}
+                            <td class="am-hide-sm-only">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar"
+                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                         style="width: 100%;">失败
+                                    </div>
+                                </div>
+{#                                <i class="glyphicon glyphicon-remove"> 失败</i>#}
+                            </td>
+                        {% endif %}
+
+                        <td width="50">{{ result.message }}</td>
+                        <td>{{ result.last_ten_success_percent }}%</td>
+                        <td>{{ result.all_success_percent }}%</td>
+                        <td>{{ result.running_time }}秒</td>
+
+{#                        <td>#}
+{#                            <style>#}
+{#                            .input {#}
+{#                            height: 20px;#}
+{#                            width: 100px;#}
+{#                            }#}
+{#                            </style>#}
+{#                            <form class="form-horizontal" id="fix_time">#}
+{#                                    <div class="col-md-5" >#}
+{#                                        <input type="text" class="input" id="tradeOrderId" aria-describedby="inputSuccess3Status" name="timeDiff" placeholder="{{ result.time_diff }}分钟" value="">#}
+{#                                        <button type="button" class="btn btn-primary btn-xs" id="send" onclick="info_ajax('#fix_time', '/api/update_time_diff/')"  style="width:40px; height:20px;">#}
+{#                                            修改#}
+{#                                        </button>&nbsp;#}
+{#                                    </div>#}
+{#                            </form>#}
+{#                                <form class="bs-example bs-example-form" role="form" id="fix_time">#}
+{#                                        <div class="col-lg-6">#}
+{#                                            <div class="input-group">#}
+{#                                                <input type="text" class="form-control" style="height: 40px;width: 100px;" name="timeDiff" placeholder="{{ result.time_diff }}分钟">#}
+{#                                                <span class="input-group-btn">#}
+{#                                                    <button class="btn btn-default" style="height: 40px;" type="button" id="send" onclick="info_ajax('#fix_time', '/api/update_time_diff/')">修改</button>#}
+{#                                                </span>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                </form>#}
+{#                        </td>#}
+
+                        <td>{{ result.run_time }}</td>
+                        <td>
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
+                                    <button type="button"
+                                            class="am-btn am-btn-default am-btn-xs am-text-secondary am-round"
+                                            data-am-popover="{content: '开启', trigger: 'hover focus'}"
+                                            onclick="task_set(true,'{{ result.monitoring_name }}')"> <span
+                                            class="glyphicon glyphicon-play"></span></button>
+                                    <button type="button"
+                                            class="am-btn am-btn-default am-btn-xs am-text-secondary am-round"
+                                            data-am-popover="{content: '关闭', trigger: 'hover focus'}"
+                                            onclick="task_set(false,'{{ result.monitoring_name }}')"> <span
+                                            class="glyphicon glyphicon-stop"></span></button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <hr/>
+        </form>
+    </div>
+                </form>
+            </div>
+        </div>
+
+
+    <script type="text/javascript">
+    function myrefresh()
+        {
+           window.location.reload();
+        }
+        setTimeout('myrefresh()',30000); //指定每30秒页面自动刷新
+
+
+        function task_set(mode,monitoring_name) {
+            var data = {
+                'mode': mode,
+                'monitoring_name':monitoring_name
+            };
+            $.ajax({
+                type: 'post',
+                url: '/api/start_or_stop_monitoring/',
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                success: function (data) {
+                    if (data !== 'ok') {
+                        myAlert(data);
+                    }
+                    else {
+                        window.location.reload();
+                    }
+                },
+                error: function () {
+                    myAlert('Sorry，服务器可能开小差啦, 请重试!');
+                }
+            });
+        }
+
+        $('#select_all').click(function () {
+            var isChecked = $(this).prop("checked");
+            $("input[name^='task']").prop("checked", isChecked);
+        })
+
+    </script>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

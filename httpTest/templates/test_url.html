@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}地址书签{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+    <div class="admin-biaogelist">
+        <div class="listbiaoti am-cf">
+            <ul class="glyphicon glyphicon-book"> 地址书签 </ul>
+            <dl class="glyphicon glyphicon-book" style="float: right;"> 当前位置： 系统设置 > <a href="#">地址书签</a></dl>
+        </div>
+
+
+        <form class="am-form am-g" >
+
+        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+            <H2 class="glyphicon glyphicon-align-left">开放平台：</H2>
+            <p>
+                <A HREF="https://open.caocaokeji.cn/document/useCar" class="btn btn-info">曹操出行开放平台</A>
+                <A HREF="https://developer.10101111.com" class="btn btn-info">神州专车开放平台</A>
+                <A HREF="https://openapi-doc.01zhuanche.com/hui-diao/tong-zhi-jie-dian.html" class="btn btn-info">首汽约车开放平台</A>
+                <A HREF="https://mypre.10101111.com/company/index.do" class="btn btn-info">神州专车管理平台-测试环境</A>
+                <A HREF="https://lbs.amap.com/dev/mapstyle/index" class="btn btn-info">高德地图开放平台</A>
+                <A HREF="https://open.cmbchina.com/Platform/#/resource/document/guide" class="btn btn-info">招商银行开放平台</A>
+            </p>
+
+            <hr style="filter: alpha(opacity=0,finishopacity=100,style=1)" width="80%" color="#987cb9" size=3>
+            <H2 class="glyphicon glyphicon-align-left">浦发测试地址：</H2>
+            <p>
+                <A HREF="http://testzx.ywsk.cn:38000/netcar/#/car-home" class="btn btn-success">Trade交易端</A>
+                <A HREF="http://testzx.ywsk.cn:38000/netCarAdminVue/" class="btn btn-success">Sheet管理平台</A>
+                <A HREF="http://testzx.ywsk.cn:38000/platformAdminVue/" class="btn btn-success">Pipe管理平台</A>
+                <A HREF="http://testzx.ywsk.cn:38000/netcar-job-admin/toLogin" class="btn btn-success">Trade调度中心</A>
+                <A HREF="http://testzx.ywsk.cn:38000/netCarAdminJob/toLogin" class="btn btn-success">Sheet调度中心</A>
+                <A HREF="http://testzx.ywsk.cn:38000/platformJobAdmin/toLogin" class="btn btn-success">Pipe调度中心</A>
+            </p>
+
+            <hr style="filter: alpha(opacity=0,finishopacity=100,style=1)" width="80%" color="#987cb9" size=3>
+            <H2 class="glyphicon glyphicon-align-left">中信测试地址：</H2>
+            <p>
+                <A HREF="https://citictest.ywsk.cn:7104/netcar/index.html" class="btn btn-success">Trade交易端</A>
+                <A HREF="https://citictest.ywsk.cn:7204/netCarAdminVue/index.html" class="btn btn-success">Sheet管理平台</A>
+                <A HREF="https://citictest.ywsk.cn/platformAdminVue/" class="btn btn-success">Pipe管理平台</A>
+                <A HREF="https://citictest.ywsk.cn:7106/netcar-job-admin/toLogin" class="btn btn-success">Trade调度中心</A>
+                <A HREF="https://citictest.ywsk.cn:7106/netcar-job-admin/toLogin" class="btn btn-success">Sheet调度中心</A>
+                <A HREF="https://citictest.ywsk.cn/platformJobAdmin/toLogin" class="btn btn-success">Pipe调度中心</A>
+            </p>
+
+            <hr style="filter: alpha(opacity=0,finishopacity=100,style=1)" width="80%" color="#987cb9" size=3>
+            <H2 class="glyphicon glyphicon-align-left">广发测试地址：</H2>
+            <p>
+                <A HREF="https://cgbtest.ywsk.cn:7104/netcar/index.html#/car-home" class="btn btn-success">Trade交易端</A>
+                <A HREF="https://cgbtest.ywsk.cn:7204/netCarAdminVue/index.html#/login" class="btn btn-success">Sheet管理平台</A>
+                <A HREF="https://cgbtest.ywsk.cn/platformAdminVue/" class="btn btn-success">Pipe管理平台</A>
+                <A HREF="https://cgbtest.ywsk.cn:7106/netcar-job-admin/toLogin" class="btn btn-success">Trade调度中心</A>
+                <A HREF="https://cgbtest.ywsk.cn:7106/netcar-job-admin/toLogin" class="btn btn-success">Sheet调度中心</A>
+                <A HREF="https://citictest.ywsk.cn/platformJobAdmin/toLogin" class="btn btn-success">Pipe调度中心</A>
+            </p>
+
+            <hr style="filter: alpha(opacity=0,finishopacity=100,style=1)" width="80%" color="#987cb9" size=3>
+            <H2 class="glyphicon glyphicon-align-left">浦发生产地址：</H2>
+            <p>
+                <A HREF="https://netcar.ywsk.cn/platformAdminVue/" class="btn btn-danger">Pipe管理平台</A>
+                <A HREF="https://netcar.ywsk.cn/platformJobAdmin/toLogin" class="btn btn-danger">Pipe调度中心</A>
+            </p>
+
+            <hr style="filter: alpha(opacity=0,finishopacity=100,style=1)" width="80%" color="#987cb9" size=3>
+            <H2 class="glyphicon glyphicon-align-left">中信生产地址：</H2>
+            <p>
+                <A HREF="https://citic.ywsk.cn:7204/netCarAdminVue/index.html" class="btn btn-danger">Sheet管理平台</A>
+                <A HREF="https://citic.ywsk.cn/platformAdminVue/" class="btn btn-danger">Pipe管理平台</A>
+                <A HREF="https://citic.ywsk.cn/platformJobAdmin/toLogin" class="btn btn-danger">Pipe调度中心</A>
+            </p>
+
+            <hr style="filter: alpha(opacity=0,finishopacity=100,style=1)" width="80%" color="#987cb9" size=3>
+
+            <H2 class="glyphicon glyphicon-align-left">其他：</H2>
+            <p>
+                <A HREF="https://gitlab.zrong.cn/groups/netCar" class="btn btn-warning">网约车GitLab</A>
+                <A HREF="https://www.json.cn/" class="btn btn-warning">JSON在线解析</A>
+                <A HREF="https://www.bejson.com/validators/yaml/" class="btn btn-warning">YAML在线解析</A>
+                <A HREF="https://tool.lu/sql/" class="btn btn-warning">SQL在线美化压缩</A>
+                <A HREF="https://tool.lu/timestamp/" class="btn btn-warning">时间戳在线转换</A>
+                <A HREF="https://tool.lu/encdec/" class="btn btn-warning">在线加密</A>
+                <A HREF="https://tool.lu/ip/" class="btn btn-warning">IP地址查询</A>
+                <A HREF="https://tool.lu/qrcode/" class="btn btn-warning">在线二维码生成</A>
+                <A HREF="https://tool.lu/httpcode/" class="btn btn-warning">http状态码查询</A>
+                <A HREF="https://tool.lu/whois/" class="btn btn-warning">Whois在线查询</A>
+                <A HREF="https://tool.lu/command/" class="btn btn-warning">Linux命令查询</A>
+            </p>
+        </form>
+    </div>
+
+{% endblock %}

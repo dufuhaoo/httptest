@@ -1,0 +1,78 @@
+-   config:
+        name: "\u6D4B\u8BD5\u67E5\u8BE2\u6DFB\u52A0\u5BB6\u7684\u5E38\u7528\u5730\u5740"
+        request:
+            base_url: http://testzx.ywsk.cn:38000
+            headers:
+                Authorization: ${trade_random_login($login_user_mobile,40)}
+                content-type: application/json; charset=UTF-8
+        variables:
+        -   login_user_mobile: '17700210101'
+        -   home_lat: '39.9378'
+        -   home_lng: '116.3266'
+        -   home_streetName: "\u5218\u8857"
+        -   home_addName: "\u7518\u8083\u7701\u6DD1\u73CD\u53BF\u4E0A\u8857\u547C\u548C\
+                \u6D69\u7279\u8DEFR\u5EA7 269118"
+        -   home_areaName: "\u6D77\u6DC0\u533A"
+        -   company_lat: '39.9378'
+        -   company_lng: '116.3266'
+        -   company_streetName: "\u8DCB\u8DEF"
+        -   company_addName: "\u5E7F\u897F\u58EE\u65CF\u81EA\u6CBB\u533A\u798F\u5DDE\
+                \u5E02\u9AD8\u660E\u7A7A\u8857g\u5EA7 828487"
+        -   company_areaName: "\u5E7F\u897F\u58EE\u65CF\u81EA\u6CBB\u533A\u798F\u5DDE\
+                \u5E02\u9AD8\u660E\u7A7A\u8857g\u5EA7 828487"
+-   test:
+        name: "\u3010\u524D\u7F6E\u6761\u4EF6\u3011\u6D4B\u8BD5\u6DFB\u52A0\u5BB6\u5E38\
+            \u7528\u5730\u5740"
+        request:
+            json:
+                data:
+                    addName: $home_addName
+                    addType: 1
+                    areaName: $home_areaName
+                    locationInfo:
+                        lat: $home_lat
+                        lng: $home_lng
+                    streetName: $home_streetName
+                signStr: string
+            method: POST
+            url: netCar/page/address/addCustomerCommonAddress
+        validate:
+        -   check: content.code
+            comparator: equals
+            expected: 0
+        -   check: content.msg
+            comparator: equals
+            expected: OK
+-   test:
+        extract:
+        -   addres_id: content.data.0.id
+        name: "\u6D4B\u8BD5\u67E5\u8BE2\u6DFB\u52A0\u5BB6\u7684\u5E38\u7528\u5730\u5740"
+        request:
+            method: GET
+            url: netCar/page/address/getCustomerAddressData
+        setup_hooks: []
+        teardown_hooks:
+        - ${clean_user_common_address($login_user_mobile)}
+        - ${sleep(5)}
+        validate:
+        -   check: content.code
+            comparator: equals
+            expected: 0
+        -   check: content.msg
+            comparator: equals
+            expected: OK
+        -   check: content.data.0.addName
+            comparator: equals
+            expected: $home_addName
+        -   check: content.data.0.addType
+            comparator: equals
+            expected: 1
+        -   check: content.data.0.streetName
+            comparator: equals
+            expected: $home_streetName
+        -   check: content.data.0.lng
+            comparator: equals
+            expected: $home_lng
+        -   check: content.data.0.lat
+            comparator: equals
+            expected: $home_lat

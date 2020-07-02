@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}曹操司机端回调{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+    <div class=" admin-content">
+
+        <div class="admin-biaogelist">
+            <div class="listbiaoti am-cf">
+                <ul class="glyphicon glyphicon-wrench"> 曹操司机端回调</ul>
+            </div>
+            <div class="fbneirong">
+                <form class="form-horizontal" id="cc_driver_callback">
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="responsible_name">事件：</label>
+                        <div class="col-md-5">
+                            <select class="form-control" name="event" id="event">
+                                    <option value="dispatched">司机接单</option>
+                                    <option value="arrived">司机已到达</option>
+                                    <option value="serviceStarted">开始服务</option>
+                                    <option value="serviceFinished">结束服务</option>
+                                    <option value="canceled">订单已取消</option>
+                                    <option value="down">司机下线</option>
+                                </select>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="high_speed_fee">高速费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="high_speed_fee"
+                                   aria-describedby="inputSuccess3Status" name="high_speed_fee" placeholder="请填写高速费，默认0元"
+                                   value="0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="park_fee">停车费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="park_fee"
+                                   aria-describedby="inputSuccess3Status" name="park_fee" placeholder="请填写停车费，默认0元"
+                                   value="0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="bridge_fee">路桥费：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="bridge_fee"
+                                   aria-describedby="inputSuccess3Status" name="bridge_fee" placeholder="请填写路桥费，默认0元"
+                                   value="0">
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="control-label col-md-1 text-primary" for="other_fee">其他费用：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="other_fee"
+                                   aria-describedby="inputSuccess3Status" name="other_fee" placeholder="请填写其他费用，默认0元"
+                                   value="0">
+                        </div>
+                    </div>
+
+                    <div class="am-form-group am-cf">
+                        <div class="you" style="margin-left: 8%;">
+                            <button type="button" class="am-btn am-btn-success am-radius" id="send"
+                                    onclick="info_ajax('#cc_driver_callback', '/api/cc_driver_callback/')">点 击 提 交
+                            </button>&nbsp;
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

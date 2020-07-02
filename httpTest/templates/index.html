@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+{% block title %}首页{% endblock %}
+{% load staticfiles %}
+{% block content %}
+    <div class="admin">
+        <div class="admin-index">
+            <dl data-am-scrollspy="{animation: 'slide-right', delay: 100}">
+                <dt class="qs"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></dt>
+                <dd>{{ project_length }}</dd>
+                <dd class="f12"><a href="/api/project_list/1/" style="text-decoration: none">项目数量</a></dd>
+            </dl>
+            <dl data-am-scrollspy="{animation: 'slide-right', delay: 300}">
+                <dt class="cs"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></dt>
+                <dd>{{ module_length }}</dd>
+                <dd class="f12"><a href="/api/module_list/1/" style="text-decoration: none">模块数量</a></dd>
+            </dl>
+            <dl data-am-scrollspy="{animation: 'slide-right', delay: 900}">
+                <dt class="ls"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span></dt>
+                <dd>{{ test_length }}</dd>
+                <dd class="f12"><a href="/api/test_list/1/" style="text-decoration: none">用例数量</a></dd>
+            </dl>
+            <dl data-am-scrollspy="{animation: 'slide-right', delay: 600}">
+                <dt class="hs"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span></dt>
+                <dd>{{ suite_length }}</dd>
+                <dd class="f12"><a href="/api/suite_list/1/" style="text-decoration: none">套件数量</a></dd>
+            </dl>
+        </div>
+
+        <div id="rrr" style="height:80%; margin-top: 10%;">
+            <script type="text/javascript">
+function isInt(n) {
+	return parseInt(n) === n;
+}
+
+function rotate(x, y, angle) {
+	var A, R, rad;
+	rad = (angle == 0 ? 270 : angle) * Math.PI / 180;
+	A = Math.atan2(y, x) + rad;
+	R = Math.sqrt(x * x + y * y);
+	return {
+		x: Math.cos(A) * R,
+		y: Math.sin(A) * R
+	};
+}
+
+function rotateElement(el, deg) {
+	el.style.transform = `rotate(${deg}deg)`;
+}
+</script>
+<div class="clock">
+	<ul class="mark">
+		<script>
+			{
+				let i = 0;
+				let html = '';
+				while (i < 60) {
+					let n = i / 5 % 12;
+					n = n === 0 ? 12 : n;
+					let bold = isInt(n);
+					html +=
+						`<li class="${bold ? ' bold': ''}" style="transform: translateY(250px) rotate(${i * 6}deg);"></li>`;
+					i++;
+				}
+				document.write(html);
+			}
+		</script>
+	</ul>
+	<script>
+		{
+			let angle = 30,
+				x = 110,
+				y = -190,
+				i = 1,
+				html = '';
+			html += `<div class="numbers" style="transform: translate(${x}px, ${y}px);">${i}</div>`;
+			while (i++ < 12) {
+				let pos = rotate(x, y, angle);
+				x = pos.x;
+				y = pos.y;
+				html += `<div class="numbers" style="transform: translate(${x}px, ${y}px);">${i}</div>`;
+			}
+			document.write(html);
+		}
+	</script>
+
+	<div class="time">
+		<div id="date"></div>
+		<div id="now"></div>
+		<div id="day"></div>
+	</div>
+
+	<div class="hour-hand" id="h"></div>
+	<div class="minute-hand" id="m"></div>
+	<div class="second-hand" id="s"></div>
+	<div class="center"></div>
+
+</div>
+
+<script>
+{
+	let f = (e, i) => (i != 0 && e < 10 ? '0' + e : e);
+	setInterval(() => {
+		let t = new Date();
+		rotateElement(h, t.getHours() * 30 + t.getMinutes() / 60 * 30);
+		rotateElement(m, t.getMinutes() * 6 + t.getSeconds() / 60 * 6);
+		rotateElement(s, t.getSeconds() * 6 + t.getMilliseconds() / 1000 * 6);
+		date.innerHTML = [t.getFullYear(), t.getMonth() + 1, t.getDate()].map(f).join('-');
+		day.innerHTML = '星期' + '日一二三四五六' [t.getDay()];
+		now.innerHTML = [t.getHours(), t.getMinutes(), t.getSeconds()].map(f).join(':');
+	}, 1000 / 60);
+}
+</script>
+
+        </div>
+
+    </div>
+{#    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>#}
+{#    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>#}
+{#    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>#}
+{#    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>#}
+{#    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>#}
+{#    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>#}
+{#    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=xHxNuK92dumZxL8n0rtQiSF08PwvZRuC"></script>#}
+{#    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>#}
+{#    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>#}
+{#    <script>#}
+{#        var dom = document.getElementById("main");#}
+{#        var myChart = echarts.init(dom);#}
+{#        var app = {};#}
+{#        option = null;#}
+{#        app.title = '折柱混合';#}
+{##}
+{#        option = {#}
+{#            tooltip: {#}
+{#                trigger: 'axis',#}
+{#                axisPointer: {#}
+{#                    type: 'cross',#}
+{#                    crossStyle: {#}
+{#                        color: '#999'#}
+{#                    }#}
+{#                }#}
+{#            },#}
+{#            toolbox: {#}
+{#                feature: {#}
+{#                    dataView: {show: false, readOnly: false},#}
+{#                    magicType: {show: true, type: ['line', 'bar']},#}
+{#                    restore: {show: true},#}
+{#                    saveAsImage: {show: true}#}
+{#                }#}
+{#            },#}
+{#            legend: {#}
+{#                data: ['失败用例', '成功用例', '通过率']#}
+{#            },#}
+{#            xAxis: [#}
+{#                {#}
+{#                    type: 'category',#}
+{#                    data: [],#}
+{#                    axisPointer: {#}
+{#                        type: 'shadow'#}
+{#                    }#}
+{#                }#}
+{#            ],#}
+{#            yAxis: [#}
+{#                {#}
+{#                    type: 'value',#}
+{#                    name: '个数',#}
+{#                    min: 0,#}
+{#                    max: 100,#}
+{#                    interval: 10,#}
+{#                    axisLabel: {#}
+{#                        formatter: '{value} '#}
+{#                    }#}
+{#                },#}
+{#                {#}
+{#                    type: 'value',#}
+{#                    name: '成功率',#}
+{#                    min: 0,#}
+{#                    max: 100,#}
+{#                    interval: 10,#}
+{#                    axisLabel: {#}
+{#                        formatter: '% {value}'#}
+{#                    }#}
+{#                }#}
+{#            ],#}
+{#            series: [#}
+{#                {#}
+{#                    name: '失败用例',#}
+{#                    type: 'bar',#}
+{#                    data: []#}
+{#                },#}
+{#                {#}
+{#                    name: '通过率',#}
+{#                    type: 'line',#}
+{#                    yAxisIndex: 1,#}
+{#                    data: []#}
+{#                },#}
+{#                {#}
+{#                    name: '成功用例',#}
+{#                    type: 'bar',#}
+{#                    data: []#}
+{#                }#}
+{#            ]#}
+{#        };#}
+{#        if (option && typeof option === "object") {#}
+{#            var xAxis_data = get_date_xAxis();#}
+{#            option.xAxis[0].data = xAxis_data;#}
+{#            option.series[0].data = {{ total.fail }};#}
+{#            option.series[1].data = {{ total.percent }};#}
+{#            option.series[2].data = {{ total.pass }};#}
+{##}
+{#            var max_fail = Math.max.apply(null, option.series[0].data);#}
+{#            var max_pass = Math.max.apply(null, option.series[2].data);#}
+{##}
+{#            if (Math.max(max_fail, max_pass) > 100) {#}
+{#                option.yAxis[0].max = Math.max(max_fail, max_pass) + 10;#}
+{#                option.yAxis[0].interval = parseInt(Math.max(max_fail, max_pass) / 10);#}
+{#            }#}
+{#            myChart.setOption(option, true);#}
+{#        }#}
+{##}
+{#        function get_date_xAxis() {#}
+{#            var data = [];#}
+{#            for (var i = 0; i < 12; i++) {#}
+{#                data[i] = getDay(i)#}
+{#            }#}
+{#            return data.reverse();#}
+{#        }#}
+{##}
+{#        function getDay(day) {#}
+{#            var today = new Date();#}
+{#            var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day * -1;#}
+{#            today.setTime(targetday_milliseconds); //注意，这行是关键代码#}
+{#            var tYear = today.getFullYear();#}
+{#            var tMonth = today.getMonth();#}
+{#            var tDate = today.getDate();#}
+{#            tMonth = doHandleMonth(tMonth + 1);#}
+{#            tDate = doHandleMonth(tDate);#}
+{#            return tYear + "-" + tMonth + "-" + tDate;#}
+{#        }#}
+{##}
+{#        function doHandleMonth(month) {#}
+{#            var m = month;#}
+{#            if (month.toString().length === 1) {#}
+{#                m = "0" + month;#}
+{#            }#}
+{#            return m;#}
+{#        }#}
+{#    </script>#}
+{##}
+
+
+{% endblock %}
